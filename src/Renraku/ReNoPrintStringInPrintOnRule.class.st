@@ -40,12 +40,19 @@ ReNoPrintStringInPrintOnRule >> group [
 
 { #category : #accessing }
 ReNoPrintStringInPrintOnRule >> name [
-	^ 'No printString inside printOn' 
+	^ 'No printString inside printOn:' 
 ]
 
 { #category : #accessing }
 ReNoPrintStringInPrintOnRule >> rationale [
-	^ 'Use the stream argument to #printOn: e.g.( stream print: anObject ) instead of creating an extra stream by using printString. e.g.( stream nextPutAll: anObject printString ).'
+	^ 'Use the stream argument of #printOn: e.g., ( stream print: anObject ) instead of creating an extra stream by using printString. e.g.( stream nextPutAll: anObject printString ).
+	When you write 
+	
+	    printOn: aStream
+	       aStream nextPutAll: self printString
+	
+	In fact printString is creating another stream. So the code above is creating a stream for nothing and asks the new stream for its contents to pass it to the argument.  
+	'
 ]
 
 { #category : #accessing }
